@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { ZODIAC_SIGNS, CATEGORIES } from "@/lib/constants"
+import Image from "next/image"
+import { ZODIAC_SIGNS, CATEGORIES, IMAGES } from "@/lib/constants"
 import ZodiacCard from "@/components/ZodiacCard"
 import CTABanner from "@/components/CTABanner"
 
@@ -11,6 +12,7 @@ const SAMPLE_ARTICLES = [
     category: "数秘術",
     categorySlug: "numerology",
     publishedAt: "2026-04-09",
+    image: "https://images.unsplash.com/photo-1509475826633-fed577a2c71b?w=600&h=400&fit=crop",
   },
   {
     slug: "money-luck-powerstone",
@@ -19,6 +21,7 @@ const SAMPLE_ARTICLES = [
     category: "パワーストーン",
     categorySlug: "powerstone",
     publishedAt: "2026-04-09",
+    image: "https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?w=600&h=400&fit=crop",
   },
   {
     slug: "birthday-fortune-april",
@@ -27,6 +30,7 @@ const SAMPLE_ARTICLES = [
     category: "誕生日占い",
     categorySlug: "birthday",
     publishedAt: "2026-04-09",
+    image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&h=400&fit=crop",
   },
 ]
 
@@ -40,12 +44,20 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero */}
+      {/* Hero with image */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-navy via-navy-light to-navy" />
-        <div className="absolute inset-0 bg-stars" />
+        <div className="absolute inset-0">
+          <Image
+            src={IMAGES.hero}
+            alt=""
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/80 to-navy" />
+        </div>
 
-        <div className="relative max-w-5xl mx-auto px-4 py-16 md:py-24 text-center">
+        <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
           <p className="text-text-dim text-xs tracking-[0.3em] uppercase mb-4 animate-fade-up">
             {today}
           </p>
@@ -53,7 +65,7 @@ export default function Home() {
             className="text-3xl md:text-5xl text-cream mb-5 leading-tight animate-fade-up animate-delay-1"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            今日の運勢を<br className="md:hidden" />チェック
+            今日の運勢をチェック
           </h1>
           <div className="gold-line max-w-[80px] mx-auto mb-5 animate-fade-up animate-delay-2" />
           <p className="text-text-secondary text-sm max-w-md mx-auto leading-relaxed animate-fade-up animate-delay-3">
@@ -92,7 +104,6 @@ export default function Home() {
 
         <div className="gold-line" />
 
-        {/* CTA */}
         <CTABanner />
 
         <div className="gold-line" />
@@ -109,24 +120,33 @@ export default function Home() {
             {SAMPLE_ARTICLES.map((article) => (
               <article
                 key={article.slug}
-                className="bg-navy-light border border-border-subtle rounded-lg p-5 card-glow group"
+                className="bg-navy-light border border-border-subtle rounded-lg overflow-hidden card-glow group"
               >
                 <Link href={`/article/${article.slug}`} className="block">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-[10px] tracking-wider text-gold-dim border border-gold/20 px-2 py-0.5 rounded">
+                  <div className="relative h-40 overflow-hidden">
+                    <Image
+                      src={article.image}
+                      alt={article.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-light via-transparent to-transparent" />
+                    <span className="absolute bottom-3 left-3 text-[10px] tracking-wider text-gold-dim border border-gold/20 bg-navy/70 backdrop-blur-sm px-2 py-0.5 rounded">
                       {article.category}
                     </span>
-                    <time className="text-[10px] text-text-dim">{article.publishedAt}</time>
                   </div>
-                  <h3
-                    className="text-cream group-hover:text-gold transition-colors leading-snug mb-2 text-sm"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {article.title}
-                  </h3>
-                  <p className="text-xs text-text-dim leading-relaxed line-clamp-2">
-                    {article.description}
-                  </p>
+                  <div className="p-4">
+                    <time className="text-[10px] text-text-dim">{article.publishedAt}</time>
+                    <h3
+                      className="text-cream group-hover:text-gold transition-colors leading-snug mt-1 text-sm"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {article.title}
+                    </h3>
+                    <p className="text-xs text-text-dim leading-relaxed line-clamp-2 mt-2">
+                      {article.description}
+                    </p>
+                  </div>
                 </Link>
               </article>
             ))}
@@ -148,15 +168,25 @@ export default function Home() {
               <Link
                 key={cat.slug}
                 href={`/category/${cat.slug}`}
-                className="bg-navy-light border border-border-subtle rounded-lg p-5 card-glow text-center group"
+                className="relative rounded-lg overflow-hidden card-glow group h-32"
               >
-                <h3
-                  className="text-cream group-hover:text-gold transition-colors text-sm mb-1"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {cat.name}
-                </h3>
-                <p className="text-[11px] text-text-dim">{cat.description}</p>
+                <Image
+                  src={cat.image}
+                  alt={cat.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-navy/60 group-hover:bg-navy/50 transition-colors" />
+                <div className="absolute inset-0 border border-border-subtle rounded-lg group-hover:border-gold/30 transition-colors" />
+                <div className="relative h-full flex flex-col items-center justify-center p-4 text-center">
+                  <h3
+                    className="text-cream group-hover:text-gold transition-colors text-sm"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {cat.name}
+                  </h3>
+                  <p className="text-[11px] text-text-dim mt-1">{cat.description}</p>
+                </div>
               </Link>
             ))}
           </div>

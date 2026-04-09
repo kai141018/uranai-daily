@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import Image from "next/image"
 import { SITE_URL, SITE_AUTHOR, CATEGORY_CTA_MAP } from "@/lib/constants"
 import { articleJsonLd, faqJsonLd } from "@/lib/jsonld"
 import Breadcrumb from "@/components/Breadcrumb"
@@ -19,6 +20,7 @@ async function getArticle(slug: string) {
     categorySlug: string
     publishedAt: string
     updatedAt: string
+    image: string
     content: string
     faqs: { question: string; answer: string }[]
     relatedArticles: { slug: string; title: string }[]
@@ -30,6 +32,7 @@ async function getArticle(slug: string) {
       categorySlug: "numerology",
       publishedAt: "2026-04-09T05:00:00+09:00",
       updatedAt: "2026-04-09T05:00:00+09:00",
+      image: "https://images.unsplash.com/photo-1509475826633-fed577a2c71b?w=1200&h=600&fit=crop",
       content: `<h2 id="what-is-numerology">数秘術ってなに？</h2>
 <p>数秘術（すうひじゅつ）は、数字に秘められた意味を読み解くことで、あなたの性格や運命を知る占いの一つです。生年月日や名前から導き出される「運命数」をもとに、あなたの人生の傾向や才能、課題を明らかにします。</p>
 <p>古代ギリシャの数学者ピタゴラスが「万物は数なり」と説いたことが起源とされ、数千年の歴史を持つ占術です。</p>
@@ -137,6 +140,14 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       <article className="py-4">
+        {/* アイキャッチ画像 */}
+        {article.image && (
+          <div className="relative h-48 md:h-64 rounded-lg overflow-hidden mb-6">
+            <Image src={article.image} alt={article.title} fill className="object-cover" priority />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-60" />
+          </div>
+        )}
+
         {/* ヘッダー */}
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-4">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { ZODIAC_SIGNS, SITE_URL } from "@/lib/constants"
+import Image from "next/image"
+import { ZODIAC_SIGNS, SITE_URL, IMAGES } from "@/lib/constants"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
@@ -64,9 +65,18 @@ export default async function SignPage({ params }: Props) {
       />
 
       <article className="py-4">
+        {/* ヘッダー画像 */}
+        <div className="relative h-40 rounded-lg overflow-hidden mb-6">
+          <Image src={IMAGES.stars} alt="" fill className="object-cover" />
+          <div className="absolute inset-0 bg-navy/60" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-6xl opacity-90">{sign.emoji}</span>
+          </div>
+        </div>
+
         <header className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <span className="text-5xl opacity-80">{sign.emoji}</span>
+            <span className="text-4xl opacity-80">{sign.emoji}</span>
             <div>
               <h1
                 className="text-2xl text-cream"

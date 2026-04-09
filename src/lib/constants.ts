@@ -56,10 +56,19 @@ export const ZODIAC_SIGNS = [
 export type ZodiacId = (typeof ZODIAC_SIGNS)[number]["id"]
 
 export const CATEGORIES = [
-  { slug: "numerology", name: "数秘術", description: "数秘術で読み解くあなたの運命" },
-  { slug: "money", name: "金運占い", description: "金運アップの秘訣を占いで解説" },
-  { slug: "powerstone", name: "パワーストーン", description: "パワーストーンの効果と選び方" },
-  { slug: "birthday", name: "誕生日占い", description: "誕生日から分かるあなたの性格と運勢" },
-  { slug: "love", name: "恋愛占い", description: "恋愛運を上げるための占いガイド" },
-  { slug: "spiritual", name: "スピリチュアル", description: "波動・宇宙・スピリチュアルの知恵" },
+  { slug: "numerology", name: "数秘術", description: "数秘術で読み解くあなたの運命", image: "https://images.unsplash.com/photo-1509475826633-fed577a2c71b?w=600&h=400&fit=crop" },
+  { slug: "money", name: "金運占い", description: "金運アップの秘訣を占いで解説", image: "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600&h=400&fit=crop" },
+  { slug: "powerstone", name: "パワーストーン", description: "パワーストーンの効果と選び方", image: "https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?w=600&h=400&fit=crop" },
+  { slug: "birthday", name: "誕生日占い", description: "誕生日から分かるあなたの性格と運勢", image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&h=400&fit=crop" },
+  { slug: "love", name: "恋愛占い", description: "恋愛運を上げるための占いガイド", image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=400&fit=crop" },
+  { slug: "spiritual", name: "スピリチュアル", description: "波動・宇宙・スピリチュアルの知恵", image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=400&fit=crop" },
 ] as const
+
+// ヒーロー・雰囲気画像
+export const IMAGES = {
+  hero: "https://images.unsplash.com/photo-1475274047050-1d0c55b25b28?w=1600&h=900&fit=crop", // 星空
+  tarot: "https://images.unsplash.com/photo-1633283767392-28d4f34b50cd?w=800&h=600&fit=crop", // タロットカード
+  crystal: "https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?w=800&h=600&fit=crop", // クリスタル
+  candles: "https://images.unsplash.com/photo-1602523961358-f9f03dd557db?w=800&h=600&fit=crop", // キャンドル
+  stars: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&h=900&fit=crop", // 星空山
+}
