@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next"
 import { SITE_URL, ZODIAC_SIGNS, CATEGORIES } from "@/lib/constants"
+import { getPublishedArticles } from "@/lib/supabase"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date().toISOString()
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -33,6 +34,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  // TODO: 記事ページはSupabaseから動的に取得してここに追加
-  return [...staticPages, ...zodiacPages, ...categoryPages]
+  const articles = await getPublishedArticles(500)
+  const articlePages: MetadataRoute.Sitemap = articles.map((a: { slug: string; published_at: string }) => ({
+    url: `${SITE_URL}/article/${a.slug}`,
+    lastModified: a.published_at,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }))
+
+  return [...staticPages, ...zodiacPages, ...categoryPages, ...articlePages]
 }

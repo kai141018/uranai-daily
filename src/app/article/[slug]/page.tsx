@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { SITE_URL, SITE_AUTHOR, CATEGORY_CTA_MAP } from "@/lib/constants"
+import { SITE_URL, SITE_AUTHOR, CATEGORY_CTA_MAP, CATEGORIES } from "@/lib/constants"
 import { getArticleBySlug, getRelatedArticles } from "@/lib/supabase"
 import { articleJsonLd, faqJsonLd } from "@/lib/jsonld"
 import Breadcrumb from "@/components/Breadcrumb"
@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: article.meta_description,
       publishedTime: article.published_at,
       authors: [SITE_AUTHOR],
+      ...(article.featured_image && { images: [{ url: article.featured_image, width: 800, height: 450 }] }),
     },
   }
 }
@@ -35,6 +36,7 @@ export default async function ArticlePage({ params }: Props) {
   if (!article) notFound()
 
   const ctaContext = CATEGORY_CTA_MAP[article.category] || "general"
+  const categoryName = CATEGORIES.find((c) => c.slug === article.category)?.name || article.category || "記事"
   const relatedArticles = article.cluster
     ? await getRelatedArticles(article.cluster, slug)
     : []
@@ -43,7 +45,7 @@ export default async function ArticlePage({ params }: Props) {
   return (
     <div className="max-w-3xl mx-auto px-4">
       <Breadcrumb items={[
-        { name: article.category || "記事", href: `/category/${article.category}` },
+        { name: categoryName, href: `/category/${article.category}` },
         { name: article.title, href: `/article/${slug}` },
       ]} />
 
@@ -71,7 +73,7 @@ export default async function ArticlePage({ params }: Props) {
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-[10px] tracking-wider text-gold-dim border border-gold/20 px-2 py-0.5 rounded">
-              {article.category || "占い"}
+              {categoryName}
             </span>
             <time className="text-[10px] text-text-dim" dateTime={article.published_at}>
               {new Date(article.published_at).toLocaleDateString("ja-JP")}
@@ -86,6 +88,19 @@ export default async function ArticlePage({ params }: Props) {
           </div>
           <div className="gold-line" />
         </header>
+
+        {article.featured_image && (
+          <div className="relative w-full aspect-video rounded-lg overflow-hidden mb-8">
+            <Image
+              src={article.featured_image}
+              alt={article.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
+        )}
 
         {/* 本文 */}
         <div
