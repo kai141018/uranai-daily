@@ -5,7 +5,7 @@ import { getTodayFortunes, getPublishedArticles } from "@/lib/supabase"
 import ZodiacCard from "@/components/ZodiacCard"
 import CTABanner from "@/components/CTABanner"
 
-export const revalidate = 300 // 5分キャッシュ
+export const dynamic = "force-dynamic"
 
 export default async function Home() {
   const [fortunes, articles] = await Promise.all([

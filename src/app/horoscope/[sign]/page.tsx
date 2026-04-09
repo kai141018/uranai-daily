@@ -6,7 +6,7 @@ import { getSignFortune } from "@/lib/supabase"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
-export const revalidate = 300
+export const dynamic = "force-dynamic"
 
 type Props = { params: Promise<{ sign: string }> }
 

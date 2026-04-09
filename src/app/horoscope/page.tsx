@@ -5,7 +5,7 @@ import ZodiacCard from "@/components/ZodiacCard"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
-export const revalidate = 300
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "今日の運勢ランキング｜12星座の運勢を毎日更新",
