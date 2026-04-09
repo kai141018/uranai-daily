@@ -139,47 +139,51 @@ export default async function ArticlePage({ params }: Props) {
       <article className="py-4">
         {/* ヘッダー */}
         <header className="mb-8">
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-3 mb-4">
             <a
               href={`/category/${article.categorySlug}`}
-              className="text-xs font-medium text-primary bg-surface px-3 py-1 rounded-full"
+              className="text-[10px] tracking-wider text-gold-dim border border-gold/20 px-2 py-0.5 rounded"
             >
               {article.category}
             </a>
-            <time className="text-xs text-text-light" dateTime={article.publishedAt}>
+            <time className="text-[10px] text-text-dim" dateTime={article.publishedAt}>
               {new Date(article.publishedAt).toLocaleDateString("ja-JP")}
             </time>
           </div>
-          <h1 className="text-2xl md:text-3xl font-black text-text-dark leading-tight mb-4">
+          <h1
+            className="text-2xl md:text-3xl text-cream leading-tight mb-4"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
             {article.title}
           </h1>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-text-light">著者：</span>
-            <span className="text-sm font-medium text-text-dark">{SITE_AUTHOR}</span>
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs text-text-dim">著者：</span>
+            <span className="text-xs text-text-secondary">{SITE_AUTHOR}</span>
           </div>
+          <div className="gold-line" />
         </header>
 
         {/* 目次 */}
-        <nav className="bg-surface rounded-xl p-5 mb-8">
-          <h2 className="text-sm font-bold text-text-dark mb-3">この記事の目次</h2>
+        <nav className="bg-navy-light border border-border-subtle rounded-lg p-5 mb-8">
+          <h2
+            className="text-sm text-cream mb-3"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            この記事の目次
+          </h2>
           <ol className="space-y-2 text-sm">
-            <li><a href="#what-is-numerology" className="text-primary hover:underline">数秘術ってなに？</a></li>
-            <li><a href="#how-to-calculate" className="text-primary hover:underline">ライフパスナンバーの計算方法</a></li>
-            <li><a href="#life-path-meanings" className="text-primary hover:underline">各ライフパスナンバーの意味</a></li>
-            <li><a href="#numerology-and-compatibility" className="text-primary hover:underline">数秘術で相性を見る方法</a></li>
-            <li><a href="#money-luck" className="text-primary hover:underline">数秘術で金運を上げるコツ</a></li>
-            <li><a href="#summary" className="text-primary hover:underline">まとめ</a></li>
+            <li><a href="#what-is-numerology" className="text-text-secondary hover:text-gold transition-colors">数秘術ってなに？</a></li>
+            <li><a href="#how-to-calculate" className="text-text-secondary hover:text-gold transition-colors">ライフパスナンバーの計算方法</a></li>
+            <li><a href="#life-path-meanings" className="text-text-secondary hover:text-gold transition-colors">各ライフパスナンバーの意味</a></li>
+            <li><a href="#numerology-and-compatibility" className="text-text-secondary hover:text-gold transition-colors">数秘術で相性を見る方法</a></li>
+            <li><a href="#money-luck" className="text-text-secondary hover:text-gold transition-colors">数秘術で金運を上げるコツ</a></li>
+            <li><a href="#summary" className="text-text-secondary hover:text-gold transition-colors">まとめ</a></li>
           </ol>
         </nav>
 
         {/* 本文 */}
         <div
-          className="prose prose-sm max-w-none mb-8
-            [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-text-dark [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:pb-2 [&_h2]:border-b [&_h2]:border-border
-            [&_p]:text-text [&_p]:leading-relaxed [&_p]:mb-4
-            [&_strong]:text-text-dark
-            [&_a]:text-primary [&_a]:underline
-          "
+          className="article-prose max-w-none mb-8"
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
 
@@ -189,16 +193,19 @@ export default async function ArticlePage({ params }: Props) {
         {/* FAQ */}
         {article.faqs.length > 0 && (
           <section className="my-8">
-            <h2 className="text-lg font-bold text-text-dark mb-4 pb-2 border-b border-border">
+            <h2
+              className="text-lg text-cream mb-4 pb-3 border-b border-border-subtle"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               よくある質問
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3">
               {article.faqs.map((faq, i) => (
-                <div key={i} className="bg-white rounded-xl border border-border p-5">
-                  <h3 className="text-sm font-bold text-text-dark mb-2">
+                <div key={i} className="bg-navy-light border border-border-subtle rounded-lg p-5">
+                  <h3 className="text-sm font-medium text-cream mb-2">
                     Q. {faq.question}
                   </h3>
-                  <p className="text-sm text-text leading-relaxed">
+                  <p className="text-sm text-text-secondary leading-relaxed">
                     A. {faq.answer}
                   </p>
                 </div>
@@ -213,15 +220,20 @@ export default async function ArticlePage({ params }: Props) {
         {/* 関連記事 */}
         {article.relatedArticles.length > 0 && (
           <section className="py-8">
-            <h2 className="text-sm font-bold text-text-dark mb-3">関連記事</h2>
+            <h2
+              className="text-sm text-cream mb-4"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              関連記事
+            </h2>
             <div className="space-y-2">
               {article.relatedArticles.map((related) => (
                 <a
                   key={related.slug}
                   href={`/article/${related.slug}`}
-                  className="block bg-white rounded-lg border border-border p-4 hover:border-primary-light transition-colors"
+                  className="block bg-navy-light border border-border-subtle rounded-lg p-4 card-glow"
                 >
-                  <span className="text-sm font-medium text-text-dark hover:text-primary">
+                  <span className="text-sm text-text-secondary hover:text-gold transition-colors">
                     {related.title}
                   </span>
                 </a>

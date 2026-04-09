@@ -1,30 +1,123 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #6B46C1;
-  --color-primary-light: #9F7AEA;
-  --color-primary-dark: #553C9A;
-  --color-accent: #F6AD55;
-  --color-accent-light: #FBD38D;
-  --color-surface: #FAF5FF;
-  --color-surface-dark: #1A0533;
-  --color-text: #2D3748;
-  --color-text-light: #718096;
-  --color-text-dark: #1A202C;
-  --color-border: #E2E8F0;
-  --color-gold: #D69E2E;
-  --color-gold-light: #F6E05E;
-  --font-sans: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "メイリオ", sans-serif;
+  --color-navy: #0B1120;
+  --color-navy-light: #131B2E;
+  --color-navy-mid: #1A2540;
+  --color-navy-surface: #1E2A45;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8D48B;
+  --color-gold-dim: #8B7A3C;
+  --color-gold-glow: #C9A84C33;
+  --color-cream: #F5F0E8;
+  --color-cream-dark: #D9D0C1;
+  --color-rose: #C97B7B;
+  --color-rose-light: #E8A5A5;
+  --color-sky: #7BA4C9;
+  --color-emerald: #7BC9A8;
+  --color-text-primary: #E8E2D6;
+  --color-text-secondary: #9B9484;
+  --color-text-dim: #6B6458;
+  --color-border-subtle: #2A3550;
+  --color-border-gold: #C9A84C22;
+  --font-display: "Shippori Mincho", "游明朝", "YuMincho", serif;
+  --font-body: "Noto Sans JP", "Hiragino Sans", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #FAFAFA;
-  color: var(--color-text);
-  font-family: var(--font-sans);
+  background: var(--color-navy);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: var(--color-primary-light);
-  color: white;
+  background: var(--color-gold);
+  color: var(--color-navy);
 }
+
+/* Star field background */
+.bg-stars {
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(201, 168, 76, 0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(201, 168, 76, 0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 80%, rgba(201, 168, 76, 0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 60%, rgba(201, 168, 76, 0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 40%, rgba(201, 168, 76, 0.1) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 90%, rgba(201, 168, 76, 0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 55%, rgba(201, 168, 76, 0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 25%, rgba(201, 168, 76, 0.2) 0%, transparent 100%);
+}
+
+/* Gold shimmer line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-dim), var(--color-gold), var(--color-gold-dim), transparent);
+}
+
+/* Card hover glow */
+.card-glow {
+  transition: all 0.3s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.08), 0 4px 16px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-gold-dim);
+}
+
+/* Prose styles for article content */
+.article-prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-cream);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+  position: relative;
+}
+.article-prose h2::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background: var(--color-gold);
+}
+.article-prose p {
+  color: var(--color-text-primary);
+  line-height: 1.9;
+  margin-bottom: 1.25rem;
+  font-size: 0.9375rem;
+}
+.article-prose strong {
+  color: var(--color-gold-light);
+  font-weight: 600;
+}
+.article-prose a {
+  color: var(--color-sky);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.article-prose a:hover {
+  color: var(--color-gold-light);
+}
+
+/* Fade in animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+.animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+.animate-delay-4 { animation-delay: 0.4s; opacity: 0; }

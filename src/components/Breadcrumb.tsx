@@ -20,15 +20,15 @@ export default function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(jsonLdItems)) }}
       />
-      <nav aria-label="パンくずリスト" className="text-sm text-text-light py-3">
-        <ol className="flex flex-wrap items-center gap-1">
+      <nav aria-label="パンくずリスト" className="text-xs text-text-dim py-4">
+        <ol className="flex flex-wrap items-center gap-1.5">
           {fullItems.map((item, i) => (
-            <li key={item.href} className="flex items-center gap-1">
-              {i > 0 && <span className="text-border">/</span>}
+            <li key={item.href} className="flex items-center gap-1.5">
+              {i > 0 && <span className="text-border-subtle">›</span>}
               {i === fullItems.length - 1 ? (
-                <span className="text-text-dark">{item.name}</span>
+                <span className="text-text-secondary">{item.name}</span>
               ) : (
-                <Link href={item.href} className="hover:text-primary transition-colors">
+                <Link href={item.href} className="hover:text-gold transition-colors">
                   {item.name}
                 </Link>
               )}

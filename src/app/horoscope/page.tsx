@@ -10,9 +10,7 @@ export const metadata: Metadata = {
     "12星座の今日の運勢ランキングを毎朝更新。総合運・金運・恋愛運・仕事運をチェックして、今日一日を最高の一日にしましょう。",
 }
 
-// TODO: Supabaseから今日の運勢データを取得
 function getTodayFortune() {
-  // ダミーデータ（ヨルノズクが毎朝更新するデータに差し替え）
   return ZODIAC_SIGNS.map((sign, i) => ({
     ...sign,
     rank: i + 1,
@@ -35,12 +33,17 @@ export default function HoroscopePage() {
       <Breadcrumb items={[{ name: "今日の運勢", href: "/horoscope" }]} />
 
       <section className="py-4">
-        <h1 className="text-2xl font-black text-text-dark mb-1">今日の運勢ランキング</h1>
-        <p className="text-sm text-text-light mb-6">{today}の12星座運勢ランキング</p>
+        <h1
+          className="text-2xl text-cream mb-1"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          今日の運勢ランキング
+        </h1>
+        <p className="text-xs text-text-dim mb-8 tracking-wide">{today}</p>
 
         {/* TOP3 */}
-        <div className="mb-6">
-          <h2 className="text-sm font-bold text-gold mb-3">本日のTOP3</h2>
+        <div className="mb-8">
+          <h2 className="text-xs tracking-[0.2em] text-gold-dim uppercase mb-4">本日のTOP3</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {fortunes.slice(0, 3).map((fortune) => (
               <ZodiacCard
@@ -56,6 +59,8 @@ export default function HoroscopePage() {
             ))}
           </div>
         </div>
+
+        <div className="gold-line mb-8" />
 
         {/* 4位以降 */}
         <div className="mb-8">
