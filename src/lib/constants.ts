@@ -4,6 +4,39 @@ export const SITE_URL = "https://uranai-daily.jp"
 export const SITE_AUTHOR = "占いデイリー編集部" // TODO: リアルな占い師ペルソナ名に差し替え
 export const LINE_URL_MONEY = "https://lin.ee/placeholder-money" // TODO: 金運LINE
 export const LINE_URL_LOVE = "https://lin.ee/placeholder-love" // TODO: 恋愛LINE（実態は同じファネル）
+export const LINE_URL_GENERAL = "https://lin.ee/placeholder-general" // TODO: 汎用LINE
+
+// カテゴリ → CTAタイプの自動マッピング
+export type CTAType = "money" | "love" | "general"
+export const CATEGORY_CTA_MAP: Record<string, CTAType> = {
+  numerology: "money",
+  money: "money",
+  powerstone: "money",
+  birthday: "general",
+  love: "love",
+  spiritual: "general",
+}
+
+export const CTA_CONFIG: Record<CTAType, { url: string; label: string; compactLabel: string; gradient: string }> = {
+  money: {
+    url: LINE_URL_MONEY,
+    label: "金運のプロに無料で見てもらう",
+    compactLabel: "金運のプロに無料相談 →",
+    gradient: "from-gold to-yellow-500",
+  },
+  love: {
+    url: LINE_URL_LOVE,
+    label: "恋愛のプロに無料で見てもらう",
+    compactLabel: "恋愛のプロに無料相談 →",
+    gradient: "from-pink-500 to-rose-500",
+  },
+  general: {
+    url: LINE_URL_GENERAL,
+    label: "プロの鑑定士に無料で見てもらう",
+    compactLabel: "プロに無料鑑定してもらう →",
+    gradient: "from-primary to-primary-dark",
+  },
+}
 
 export const ZODIAC_SIGNS = [
   { id: "aries", name: "おひつじ座", emoji: "♈", period: "3/21〜4/19" },

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { CATEGORIES, SITE_URL } from "@/lib/constants"
+import { CATEGORIES, SITE_URL, CATEGORY_CTA_MAP } from "@/lib/constants"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: Props) {
           </div>
         )}
 
-        <CTABanner />
+        <CTABanner context={CATEGORY_CTA_MAP[slug] || "general"} />
       </section>
     </div>
   )

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { SITE_URL, SITE_AUTHOR } from "@/lib/constants"
+import { SITE_URL, SITE_AUTHOR, CATEGORY_CTA_MAP } from "@/lib/constants"
 import { articleJsonLd, faqJsonLd } from "@/lib/jsonld"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
@@ -101,6 +101,8 @@ export default async function ArticlePage({ params }: Props) {
   const article = await getArticle(slug)
   if (!article) notFound()
 
+  const ctaContext = CATEGORY_CTA_MAP[article.categorySlug] || "general"
+
   return (
     <div className="max-w-3xl mx-auto px-4">
       <Breadcrumb
@@ -182,7 +184,7 @@ export default async function ArticlePage({ params }: Props) {
         />
 
         {/* 中間CTA */}
-        <CTABanner variant="compact" />
+        <CTABanner variant="compact" context={ctaContext} />
 
         {/* FAQ */}
         {article.faqs.length > 0 && (
@@ -206,7 +208,7 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         {/* メインCTA */}
-        <CTABanner />
+        <CTABanner context={ctaContext} />
 
         {/* 関連記事 */}
         {article.relatedArticles.length > 0 && (
