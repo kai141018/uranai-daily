@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { CATEGORIES, SITE_URL, CATEGORY_CTA_MAP } from "@/lib/constants"
+import { getArticlesByCategory } from "@/lib/supabase"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
-type Props = {
-  params: Promise<{ slug: string }>
-}
+export const revalidate = 3600
+
+type Props = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
   return CATEGORIES.map((cat) => ({ slug: cat.slug }))
@@ -16,13 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const category = CATEGORIES.find((c) => c.slug === slug)
   if (!category) return {}
-
   return {
     title: `${category.name}の記事一覧`,
     description: category.description,
-    alternates: {
-      canonical: `${SITE_URL}/category/${slug}`,
-    },
+    alternates: { canonical: `${SITE_URL}/category/${slug}` },
   }
 }
 
@@ -31,20 +29,14 @@ export default async function CategoryPage({ params }: Props) {
   const category = CATEGORIES.find((c) => c.slug === slug)
   if (!category) notFound()
 
-  // TODO: Supabaseからカテゴリ別記事を取得
-  const articles: { slug: string; title: string; description: string; publishedAt: string }[] = []
+  const articles = await getArticlesByCategory(slug)
 
   return (
     <div className="max-w-5xl mx-auto px-4">
-      <Breadcrumb
-        items={[{ name: category.name, href: `/category/${slug}` }]}
-      />
+      <Breadcrumb items={[{ name: category.name, href: `/category/${slug}` }]} />
 
       <section className="py-4">
-        <h1
-          className="text-2xl text-cream mb-1"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <h1 className="text-2xl text-cream mb-1" style={{ fontFamily: "var(--font-display)" }}>
           {category.name}
         </h1>
         <p className="text-sm text-text-dim mb-8">{category.description}</p>
@@ -55,13 +47,15 @@ export default async function CategoryPage({ params }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {articles.map((article) => (
+            {articles.map((article: { slug: string; title: string; meta_description: string; published_at: string }) => (
               <a
                 key={article.slug}
                 href={`/article/${article.slug}`}
                 className="block bg-navy-light border border-border-subtle rounded-lg p-5 card-glow group"
               >
-                <time className="text-[10px] text-text-dim">{article.publishedAt}</time>
+                <time className="text-[10px] text-text-dim">
+                  {new Date(article.published_at).toLocaleDateString("ja-JP")}
+                </time>
                 <h3
                   className="text-cream group-hover:text-gold transition-colors leading-snug mt-1 mb-2 text-sm"
                   style={{ fontFamily: "var(--font-display)" }}
@@ -69,7 +63,7 @@ export default async function CategoryPage({ params }: Props) {
                   {article.title}
                 </h3>
                 <p className="text-xs text-text-dim leading-relaxed line-clamp-2">
-                  {article.description}
+                  {article.meta_description}
                 </p>
               </a>
             ))}

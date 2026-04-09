@@ -1,26 +1,20 @@
 import type { Metadata } from "next"
 import { ZODIAC_SIGNS } from "@/lib/constants"
+import { getTodayFortunes } from "@/lib/supabase"
 import ZodiacCard from "@/components/ZodiacCard"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
+export const revalidate = 300
+
 export const metadata: Metadata = {
   title: "今日の運勢ランキング｜12星座の運勢を毎日更新",
-  description:
-    "12星座の今日の運勢ランキングを毎朝更新。総合運・金運・恋愛運・仕事運をチェックして、今日一日を最高の一日にしましょう。",
+  description: "12星座の今日の運勢ランキングを毎朝更新。総合運・金運・恋愛運・仕事運をチェック。",
 }
 
-function getTodayFortune() {
-  return ZODIAC_SIGNS.map((sign, i) => ({
-    ...sign,
-    rank: i + 1,
-    stars: 5 - Math.floor(i / 3),
-    summary: "今日は新しいことに挑戦するのに最適な日です。直感を信じて行動しましょう。",
-  }))
-}
+export default async function HoroscopePage() {
+  const fortunes = await getTodayFortunes()
 
-export default function HoroscopePage() {
-  const fortunes = getTodayFortune()
   const today = new Date().toLocaleDateString("ja-JP", {
     year: "numeric",
     month: "long",
@@ -28,54 +22,49 @@ export default function HoroscopePage() {
     weekday: "short",
   })
 
+  // DBに運勢がある場合はDBから、なければ星座リストだけ表示
+  const zodiacWithFortune = ZODIAC_SIGNS.map((sign) => {
+    const fortune = fortunes?.find((f: { sign: string }) => f.sign === sign.id)
+    return {
+      ...sign,
+      rank: fortune?.ranking,
+      stars: fortune?.overall_score,
+      summary: fortune?.advice,
+    }
+  })
+
+  // ランキング順にソート（DB運勢がある場合）
+  const sorted = fortunes
+    ? [...zodiacWithFortune].sort((a, b) => (a.rank || 99) - (b.rank || 99))
+    : zodiacWithFortune
+
   return (
     <div className="max-w-5xl mx-auto px-4">
       <Breadcrumb items={[{ name: "今日の運勢", href: "/horoscope" }]} />
 
       <section className="py-4">
-        <h1
-          className="text-2xl text-cream mb-1"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
+        <h1 className="text-2xl text-cream mb-1" style={{ fontFamily: "var(--font-display)" }}>
           今日の運勢ランキング
         </h1>
         <p className="text-xs text-text-dim mb-8 tracking-wide">{today}</p>
 
-        {/* TOP3 */}
-        <div className="mb-8">
-          <h2 className="text-xs tracking-[0.2em] text-gold-dim uppercase mb-4">本日のTOP3</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {fortunes.slice(0, 3).map((fortune) => (
-              <ZodiacCard
-                key={fortune.id}
-                id={fortune.id}
-                name={fortune.name}
-                emoji={fortune.emoji}
-                period={fortune.period}
-                rank={fortune.rank}
-                stars={fortune.stars}
-                summary={fortune.summary}
-              />
-            ))}
+        {fortunes && (
+          <div className="mb-8">
+            <h2 className="text-xs tracking-[0.2em] text-gold-dim uppercase mb-4">本日のTOP3</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {sorted.slice(0, 3).map((s) => (
+                <ZodiacCard key={s.id} id={s.id} name={s.name} emoji={s.emoji} period={s.period} rank={s.rank} stars={s.stars} summary={s.summary} />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="gold-line mb-8" />
 
-        {/* 4位以降 */}
         <div className="mb-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {fortunes.slice(3).map((fortune) => (
-              <ZodiacCard
-                key={fortune.id}
-                id={fortune.id}
-                name={fortune.name}
-                emoji={fortune.emoji}
-                period={fortune.period}
-                rank={fortune.rank}
-                stars={fortune.stars}
-                summary={fortune.summary}
-              />
+            {(fortunes ? sorted.slice(3) : sorted).map((s) => (
+              <ZodiacCard key={s.id} id={s.id} name={s.name} emoji={s.emoji} period={s.period} rank={s.rank} stars={s.stars} summary={s.summary} />
             ))}
           </div>
         </div>
