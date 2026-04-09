@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "12星座の今日の運勢を毎日更新",
     start_url: "/",
     display: "standalone",
-    background_color: "#FAFAFA",
-    theme_color: "#6B46C1",
+    background_color: "#0B1120",
+    theme_color: "#0B1120",
     icons: [
       {
         src: "/icon-192.png",
