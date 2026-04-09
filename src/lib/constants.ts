@@ -1,8 +1,9 @@
 export const SITE_NAME = "占いデイリー"
 export const SITE_DESCRIPTION = "毎日の占いで運勢をチェック。12星座の今日の運勢、数秘術、金運占い、パワーストーン情報を毎日更新中。無料鑑定も受付中。"
 export const SITE_URL = "https://uranai-daily.jp"
-export const SITE_AUTHOR = "宇宙巫女さくら"
-export const LINE_URL = "https://lin.ee/placeholder" // TODO: 実際のLINE URLに差し替え
+export const SITE_AUTHOR = "占いデイリー編集部" // TODO: リアルな占い師ペルソナ名に差し替え
+export const LINE_URL_MONEY = "https://lin.ee/placeholder-money" // TODO: 金運LINE
+export const LINE_URL_LOVE = "https://lin.ee/placeholder-love" // TODO: 恋愛LINE（実態は同じファネル）
 
 export const ZODIAC_SIGNS = [
   { id: "aries", name: "おひつじ座", emoji: "♈", period: "3/21〜4/19" },
