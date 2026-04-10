@@ -66,7 +66,7 @@ export const CATEGORIES = [
 
 // ヒーロー・雰囲気画像
 export const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1475274047050-1d0c55b25b28?w=1600&h=900&fit=crop", // 星空
+  hero: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1600&h=900&fit=crop", // 星空・山脈
   tarot: "https://images.unsplash.com/photo-1633283767392-28d4f34b50cd?w=800&h=600&fit=crop", // タロットカード
   crystal: "https://images.unsplash.com/photo-1603344797033-f0f4f587ab60?w=800&h=600&fit=crop", // クリスタル
   candles: "https://images.unsplash.com/photo-1602523961358-f9f03dd557db?w=800&h=600&fit=crop", // キャンドル
