@@ -127,7 +127,10 @@ export default async function SignPage({ params }: Props) {
         <CTABanner />
 
         <section className="py-8">
-          <h2 className="text-sm text-cream mb-4" style={{ fontFamily: "var(--font-display)" }}>他の星座の運勢</h2>
+          <div className="text-center mb-6">
+            <p className="text-sm text-text-secondary">気になるあの人の星座は？</p>
+            <h2 className="text-lg text-cream mt-1" style={{ fontFamily: "var(--font-display)" }}>友達・恋人の運勢もチェック →</h2>
+          </div>
           <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
             {ZODIAC_SIGNS.filter((s) => s.id !== sign.id).map((s) => (
               <a key={s.id} href={`/horoscope/${s.id}`} className="text-center py-3 px-1 rounded-lg border border-border-subtle hover:border-gold/30 hover:bg-navy-surface transition-all">
