@@ -5,6 +5,7 @@ import { ZODIAC_SIGNS, SITE_URL, IMAGES } from "@/lib/constants"
 import { getSignFortune } from "@/lib/supabase"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
+import ShareButtons from "@/components/ShareButtons"
 
 export const dynamic = "force-dynamic"
 
@@ -112,6 +113,15 @@ export default async function SignPage({ params }: Props) {
           <div className="bg-navy-light border border-border-subtle rounded-lg p-10 text-center mb-6">
             <p className="text-text-dim text-sm">本日の運勢はまだ更新されていません。毎朝5時に更新されます。</p>
           </div>
+        )}
+
+        {fortune && (
+          <ShareButtons
+            sign={sign.name}
+            rank={fortune.ranking}
+            score={fortune.overall_score}
+            url={`${SITE_URL}/horoscope/${sign.id}`}
+          />
         )}
 
         <CTABanner />
