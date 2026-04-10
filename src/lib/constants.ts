@@ -2,9 +2,9 @@ export const SITE_NAME = "占いデイリー"
 export const SITE_DESCRIPTION = "毎日の占いで運勢をチェック。12星座の今日の運勢、数秘術、金運占い、パワーストーン情報を毎日更新中。無料鑑定も受付中。"
 export const SITE_URL = "https://uranai-daily.jp"
 export const SITE_AUTHOR = "占いデイリー編集部" // TODO: リアルな占い師ペルソナ名に差し替え
-export const LINE_URL_MONEY = "https://lin.ee/placeholder-money" // TODO: 金運LINE
-export const LINE_URL_LOVE = "https://lin.ee/placeholder-love" // TODO: 恋愛LINE（実態は同じファネル）
-export const LINE_URL_GENERAL = "https://lin.ee/placeholder-general" // TODO: 汎用LINE
+export const LINE_URL_MONEY = "https://utage-system.com/line/open/QA6cLS4pg4wd?mtid=cuAM9q3pShS7"
+export const LINE_URL_LOVE = "https://utage-system.com/line/open/QA6cLS4pg4wd?mtid=cuAM9q3pShS7"
+export const LINE_URL_GENERAL = "https://utage-system.com/line/open/QA6cLS4pg4wd?mtid=cuAM9q3pShS7"
 
 // カテゴリ → CTAタイプの自動マッピング
 export type CTAType = "money" | "love" | "general"
