@@ -108,6 +108,21 @@ body {
 .article-prose a:hover {
   color: var(--color-gold-light);
 }
+.article-prose .article-image {
+  margin: 1.5rem 0;
+}
+.article-prose .article-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.article-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
 
 /* Fade in animation */
 @keyframes fadeUp {

@@ -85,29 +85,36 @@ export default async function Home() {
               最新の占い記事
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {articles.slice(0, 3).map((article: { slug: string; title: string; meta_description: string; category: string; published_at: string }) => (
+              {articles.slice(0, 3).map((article: { slug: string; title: string; meta_description: string; category: string; featured_image?: string; published_at: string }) => (
                 <article
                   key={article.slug}
-                  className="bg-navy-light border border-border-subtle rounded-lg p-5 card-glow group"
+                  className="bg-navy-light border border-border-subtle rounded-lg overflow-hidden card-glow group"
                 >
                   <Link href={`/article/${article.slug}`} className="block">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] tracking-wider text-gold-dim border border-gold/20 px-2 py-0.5 rounded">
-                        {article.category || "占い"}
-                      </span>
-                      <time className="text-[10px] text-text-dim">
-                        {new Date(article.published_at).toLocaleDateString("ja-JP")}
-                      </time>
+                    {article.featured_image && (
+                      <div className="relative w-full aspect-video">
+                        <Image src={article.featured_image} alt={article.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 33vw" />
+                      </div>
+                    )}
+                    <div className="p-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-[10px] tracking-wider text-gold-dim border border-gold/20 px-2 py-0.5 rounded">
+                          {article.category || "占い"}
+                        </span>
+                        <time className="text-[10px] text-text-dim">
+                          {new Date(article.published_at).toLocaleDateString("ja-JP")}
+                        </time>
+                      </div>
+                      <h3
+                        className="text-cream group-hover:text-gold transition-colors leading-snug text-sm"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {article.title}
+                      </h3>
+                      <p className="text-xs text-text-dim leading-relaxed line-clamp-2 mt-2">
+                        {article.meta_description}
+                      </p>
                     </div>
-                    <h3
-                      className="text-cream group-hover:text-gold transition-colors leading-snug text-sm"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {article.title}
-                    </h3>
-                    <p className="text-xs text-text-dim leading-relaxed line-clamp-2 mt-2">
-                      {article.meta_description}
-                    </p>
                   </Link>
                 </article>
               ))}

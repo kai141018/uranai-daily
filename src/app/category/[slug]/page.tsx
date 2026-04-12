@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import { CATEGORIES, SITE_URL, CATEGORY_CTA_MAP } from "@/lib/constants"
 import { getArticlesByCategory } from "@/lib/supabase"
@@ -47,24 +48,31 @@ export default async function CategoryPage({ params }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {articles.map((article: { slug: string; title: string; meta_description: string; published_at: string }) => (
+            {articles.map((article: { slug: string; title: string; meta_description: string; featured_image?: string; published_at: string }) => (
               <a
                 key={article.slug}
                 href={`/article/${article.slug}`}
-                className="block bg-navy-light border border-border-subtle rounded-lg p-5 card-glow group"
+                className="block bg-navy-light border border-border-subtle rounded-lg overflow-hidden card-glow group"
               >
-                <time className="text-[10px] text-text-dim">
-                  {new Date(article.published_at).toLocaleDateString("ja-JP")}
-                </time>
-                <h3
-                  className="text-cream group-hover:text-gold transition-colors leading-snug mt-1 mb-2 text-sm"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {article.title}
-                </h3>
-                <p className="text-xs text-text-dim leading-relaxed line-clamp-2">
-                  {article.meta_description}
-                </p>
+                {article.featured_image && (
+                  <div className="relative w-full aspect-video">
+                    <Image src={article.featured_image} alt={article.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 50vw" />
+                  </div>
+                )}
+                <div className="p-5">
+                  <time className="text-[10px] text-text-dim">
+                    {new Date(article.published_at).toLocaleDateString("ja-JP")}
+                  </time>
+                  <h3
+                    className="text-cream group-hover:text-gold transition-colors leading-snug mt-1 mb-2 text-sm"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {article.title}
+                  </h3>
+                  <p className="text-xs text-text-dim leading-relaxed line-clamp-2">
+                    {article.meta_description}
+                  </p>
+                </div>
               </a>
             ))}
           </div>

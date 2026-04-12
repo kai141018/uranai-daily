@@ -39,7 +39,7 @@ export async function getSignFortune(signId: string) {
 export async function getPublishedArticles(limit = 10) {
   const { data, error } = await supabase
     .from("seo_articles")
-    .select("id, slug, title, meta_description, main_keyword, category, cluster, published_at")
+    .select("id, slug, title, meta_description, main_keyword, category, cluster, featured_image, published_at")
     .order("published_at", { ascending: false })
     .limit(limit)
 
@@ -61,7 +61,7 @@ export async function getArticleBySlug(slug: string) {
 export async function getArticlesByCategory(category: string, limit = 20) {
   const { data, error } = await supabase
     .from("seo_articles")
-    .select("id, slug, title, meta_description, category, published_at")
+    .select("id, slug, title, meta_description, category, featured_image, published_at")
     .eq("category", category)
     .order("published_at", { ascending: false })
     .limit(limit)

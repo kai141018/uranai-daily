@@ -108,7 +108,7 @@ export default async function ArticlePage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: article.content }}
         />
 
-        <CTABanner variant="compact" context={ctaContext} />
+        {/* compact CTA削除済み。CTAはcontent内のcta-box + 記事末尾のdefault CTABannerのみ */}
 
         {/* FAQ */}
         {faqs.length > 0 && (
