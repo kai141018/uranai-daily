@@ -90,6 +90,15 @@ body {
   height: 1px;
   background: var(--color-gold);
 }
+.article-prose h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-cream);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--color-gold);
+}
 .article-prose p {
   color: var(--color-text-primary);
   line-height: 1.9;
