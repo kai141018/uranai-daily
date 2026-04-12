@@ -97,8 +97,8 @@ body {
   font-size: 0.9375rem;
 }
 .article-prose strong {
-  color: var(--color-gold-light);
-  font-weight: 600;
+  color: var(--color-cream);
+  font-weight: 700;
 }
 .article-prose a {
   color: var(--color-sky);
