@@ -21,7 +21,7 @@
   --color-border-subtle: #2A3550;
   --color-border-gold: #C9A84C22;
   --font-display: "Shippori Mincho", "游明朝", "YuMincho", serif;
-  --font-body: "Noto Sans JP", "Hiragino Sans", sans-serif;
+  --font-body: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans CJK JP", "Meiryo", sans-serif;
 }
 
 html {

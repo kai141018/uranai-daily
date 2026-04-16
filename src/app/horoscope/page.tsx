@@ -4,6 +4,7 @@ import { getTodayFortunes } from "@/lib/supabase"
 import ZodiacCard from "@/components/ZodiacCard"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
+import PushNotification from "@/components/PushNotification"
 
 export const dynamic = "force-dynamic"
 
@@ -46,7 +47,11 @@ export default async function HoroscopePage() {
         <h1 className="text-2xl text-cream mb-1" style={{ fontFamily: "var(--font-display)" }}>
           今日の運勢ランキング
         </h1>
-        <p className="text-xs text-text-dim mb-8 tracking-wide">{today}</p>
+        <p className="text-xs text-text-dim mb-4 tracking-wide">{today}</p>
+
+        <div className="mb-6">
+          <PushNotification />
+        </div>
 
         {fortunes && (
           <div className="mb-8">

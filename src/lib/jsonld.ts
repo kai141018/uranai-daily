@@ -53,49 +53,9 @@ export function articleJsonLd(article: {
   }
 }
 
-export function faqJsonLd(faqs: { question: string; answer: string }[]) {
-  return {
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  }
-}
-
-export function articleWithFaqJsonLd(article: {
-  title: string
-  description: string
-  url: string
-  publishedAt: string
-  updatedAt?: string
-  imageUrl?: string
-}, faqs?: { question: string; answer: string }[]) {
-  const { "@context": _, ...articleData } = articleJsonLd(article) as Record<string, unknown>
-  const graph: Record<string, unknown>[] = [articleData]
-  if (faqs && faqs.length > 0) {
-    graph.push({
-      "@type": "FAQPage",
-      "@id": `${article.url}#faq`,
-      mainEntity: faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: faq.answer,
-        },
-      })),
-    })
-  }
-  return {
-    "@context": "https://schema.org",
-    "@graph": graph,
-  }
-}
+// FAQPage structured data removed — Google deprecated FAQ rich results
+// for non-government/health sites in August 2023. FAQ content remains
+// as visible HTML (H3 + answers) in article pages.
 
 export function breadcrumbJsonLd(
   items: { name: string; url: string }[]

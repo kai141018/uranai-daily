@@ -4,6 +4,7 @@ import { ZODIAC_SIGNS, CATEGORIES, IMAGES } from "@/lib/constants"
 import { getTodayFortunes, getPublishedArticles } from "@/lib/supabase"
 import ZodiacCard from "@/components/ZodiacCard"
 import CTABanner from "@/components/CTABanner"
+import PushNotification from "@/components/PushNotification"
 
 export const dynamic = "force-dynamic"
 
@@ -45,6 +46,10 @@ export default async function Home() {
       </section>
 
       <div className="max-w-5xl mx-auto px-4">
+        <div className="pt-6 pb-2">
+          <PushNotification />
+        </div>
+
         {/* 12星座一覧 */}
         <section className="py-10">
           <div className="flex items-center justify-between mb-6">
