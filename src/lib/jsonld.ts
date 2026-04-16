@@ -75,7 +75,8 @@ export function articleWithFaqJsonLd(article: {
   updatedAt?: string
   imageUrl?: string
 }, faqs?: { question: string; answer: string }[]) {
-  const graph: Record<string, unknown>[] = [articleJsonLd(article)]
+  const { "@context": _, ...articleData } = articleJsonLd(article) as Record<string, unknown>
+  const graph: Record<string, unknown>[] = [articleData]
   if (faqs && faqs.length > 0) {
     graph.push({
       "@type": "FAQPage",
