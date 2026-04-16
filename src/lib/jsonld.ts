@@ -55,7 +55,6 @@ export function articleJsonLd(article: {
 
 export function faqJsonLd(faqs: { question: string; answer: string }[]) {
   return {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
@@ -65,6 +64,35 @@ export function faqJsonLd(faqs: { question: string; answer: string }[]) {
         text: faq.answer,
       },
     })),
+  }
+}
+
+export function articleWithFaqJsonLd(article: {
+  title: string
+  description: string
+  url: string
+  publishedAt: string
+  updatedAt?: string
+  imageUrl?: string
+}, faqs?: { question: string; answer: string }[]) {
+  const graph: Record<string, unknown>[] = [articleJsonLd(article)]
+  if (faqs && faqs.length > 0) {
+    graph.push({
+      "@type": "FAQPage",
+      "@id": `${article.url}#faq`,
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    })
+  }
+  return {
+    "@context": "https://schema.org",
+    "@graph": graph,
   }
 }
 

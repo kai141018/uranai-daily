@@ -3,7 +3,7 @@ import Image from "next/image"
 import { notFound } from "next/navigation"
 import { SITE_URL, SITE_AUTHOR, CATEGORY_CTA_MAP, CATEGORIES } from "@/lib/constants"
 import { getArticleBySlug, getRelatedArticles } from "@/lib/supabase"
-import { articleJsonLd, faqJsonLd } from "@/lib/jsonld"
+import { articleWithFaqJsonLd } from "@/lib/jsonld"
 import Breadcrumb from "@/components/Breadcrumb"
 import CTABanner from "@/components/CTABanner"
 
@@ -52,22 +52,15 @@ export default async function ArticlePage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleJsonLd({
+          __html: JSON.stringify(articleWithFaqJsonLd({
             title: article.title,
             description: article.meta_description,
             url: `${SITE_URL}/article/${slug}`,
             publishedAt: article.published_at,
             updatedAt: article.updated_at || article.published_at,
-          })),
+          }, faqs.length > 0 ? faqs : undefined)),
         }}
       />
-
-      {faqs.length > 0 && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }}
-        />
-      )}
 
       <article className="py-4">
         <header className="mb-8">
