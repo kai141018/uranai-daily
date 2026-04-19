@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
 import { SITE_NAME, SITE_URL, LINE_URL_GENERAL } from "@/lib/constants"
 import Breadcrumb from "@/components/Breadcrumb"
 
@@ -241,6 +240,41 @@ export default function AboutPage() {
             <div className="gold-line w-12 mx-auto mt-5 mb-3" />
             <p className="text-xs text-text-dim">長門</p>
           </div>
+        </section>
+
+        {/* 運営スタッフ */}
+        <section className="mb-12 animate-fade-up animate-delay-3">
+          <h2
+            className="text-lg text-cream mb-5 pb-3 border-b border-border-subtle relative"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            運営スタッフ
+            <span className="absolute bottom-[-1px] left-0 w-[60px] h-[1px] bg-gold" />
+          </h2>
+          <a
+            href="/about/hisho"
+            className="flex items-center gap-4 py-4 px-5 rounded-lg border border-border-subtle bg-navy-light hover:border-gold/30 transition-colors"
+          >
+            <div className="w-16 h-16 rounded-full border border-gold/20 overflow-hidden flex-shrink-0">
+              <Image
+                src="/hisho.png"
+                alt="飛翔（ひしょう）"
+                width={64}
+                height={64}
+                className="w-full h-full object-cover object-[50%_30%]"
+              />
+            </div>
+            <div className="flex-1">
+              <p
+                className="text-sm text-cream mb-1"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                飛翔（ひしょう）
+              </p>
+              <p className="text-xs text-text-dim">長門の言葉を届ける男</p>
+              <p className="text-xs text-gold-dim mt-1">プロフィールを見る →</p>
+            </div>
+          </a>
         </section>
 
         {/* SNS */}

@@ -54,7 +54,12 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link href="/about" className="text-sm text-text-secondary hover:text-gold transition-colors">
-                  このサイトについて
+                  運営者情報（長門）
+                </Link>
+              </li>
+              <li>
+                <Link href="/about/hisho" className="text-sm text-text-secondary hover:text-gold transition-colors">
+                  運営スタッフ（飛翔）
                 </Link>
               </li>
               <li>
@@ -69,6 +74,9 @@ export default function Footer() {
         <div className="gold-line mt-10 mb-6" />
         <p className="text-center text-xs text-text-dim tracking-wider">
           &copy; {new Date().getFullYear()} {SITE_NAME}
+        </p>
+        <p className="text-center text-[11px] text-text-dim/70 tracking-wider mt-1">
+          運営：長門（運命を視る男）／飛翔（運営スタッフ）
         </p>
       </div>
     </footer>
