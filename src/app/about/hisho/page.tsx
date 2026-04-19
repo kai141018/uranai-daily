@@ -270,6 +270,30 @@ export default function HishoPage() {
               余計な情報は、かえって視界を曇らせるそうです。
             </p>
           </div>
+
+          {/* 鑑定受付状況の重要告知（大きめ） */}
+          <div className="rounded-lg border-2 border-gold/40 bg-gradient-to-b from-gold/5 to-transparent px-6 py-5 mb-6">
+            <div className="flex items-start gap-3">
+              <span className="text-gold text-lg leading-none mt-0.5">⚠</span>
+              <div className="space-y-2">
+                <p
+                  className="text-sm text-gold font-bold tracking-wide"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  鑑定は常時受付ではありません
+                </p>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  現在、長門さんのオフライン鑑定枠は埋まっており、
+                  オンライン鑑定は<span className="text-cream font-semibold">不定期での受付</span>になります。
+                </p>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  次回の受付タイミングは、LINE公式アカウントで先着順にご案内します。
+                  すぐに鑑定できないこと、どうかご理解ください。
+                </p>
+              </div>
+            </div>
+          </div>
+
           <a
             href={LINE_URL_GENERAL}
             target="_blank"
@@ -296,11 +320,10 @@ export default function HishoPage() {
           </div>
         </section>
 
-        {/* 注記 */}
+        {/* 注記（脚注） */}
         <section className="animate-fade-up animate-delay-4 mt-8">
           <div className="text-xs text-text-dim leading-relaxed space-y-1">
             <p>※長門さんへの直接のご連絡はお受けしておりません。すべての連絡は飛翔が承ります。</p>
-            <p>※鑑定のお申し込みは不定期受付です。現在の受付状況はLINEにてご案内しています。</p>
           </div>
         </section>
       </div>
