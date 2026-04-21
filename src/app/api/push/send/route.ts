@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
   try {
     init()
     const supabase = getSupabase()
-    const today = new Date().toISOString().split("T")[0]
+    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date())
 
     // 今日の運勢を取得
     const { data: fortunes } = await supabase
