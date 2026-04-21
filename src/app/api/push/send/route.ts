@@ -47,7 +47,21 @@ export async function GET(req: NextRequest) {
       .eq("date", today)
 
     if (!fortunes || fortunes.length === 0) {
-      return NextResponse.json({ error: "No fortunes today" }, { status: 404 })
+      // 運勢未生成アラート（ヨルノズクのcron欠損などで当日分が無い時に発報）
+      if (process.env.ALERT_DISCORD_WEBHOOK) {
+        try {
+          await fetch(process.env.ALERT_DISCORD_WEBHOOK, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              content: `🚨 push配信停止: ${today} の運勢が seo_daily_fortune に未生成。ヨルノズクが動いていない可能性があります。\n手動で /seo-fortune を起動するか、Claude Codeのcron状態を確認してください。`,
+            }),
+          })
+        } catch (_) {
+          // アラート送信失敗時も本体の404は返す
+        }
+      }
+      return NextResponse.json({ error: "No fortunes today", date: today }, { status: 404 })
     }
 
     const fortuneMap = new Map(fortunes.map((f) => [f.sign, f]))
