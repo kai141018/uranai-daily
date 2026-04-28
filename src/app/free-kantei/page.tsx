@@ -67,14 +67,24 @@ export default function FreeKanteiForm() {
         {status === 'done' ? (
           <div className="thanks">
             <h2>受け取った</h2>
-            <p>お前の生年月日と悩み、しっかり預かった</p>
-            <p>視てやる、最長48時間以内に下のLINEで届ける</p>
-            <p style={{ marginTop: 28 }}>
+            <p>お前の生年月日と悩みを、しっかり預かった</p>
+            <p>視てやる</p>
+
+            <div className="must-line">
+              <p className="must-line-head">ただし、鑑定文の納品先は LINE のトーク画面だけだ</p>
+              <p className="must-line-list">このサイトの中にも</p>
+              <p className="must-line-list">オープンチャット「長門の運命の控え室」の中にも</p>
+              <p className="must-line-list">DM・メールにも届かない</p>
+              <p className="must-line-warn">公式LINEを追加していない時点で、鑑定の枠に入っていない扱いになる</p>
+            </div>
+
+            <p style={{ marginTop: 16 }}>
               <a href={NAGATO_LINE_URL} target="_blank" rel="noopener noreferrer" className="line-link">
                 公式LINEを追加する（必須）
               </a>
             </p>
-            <p className="note">追加していないと鑑定文を届けられない、忘れず追加してくれ</p>
+            <p className="note">※ 24時間以内にLINE追加が確認できない申込はキャンセル扱いになります</p>
+            <p className="note">※ 鑑定書は最長48時間以内に、LINEのトーク画面で届きます</p>
             <p className="sig-thanks">— 長門</p>
           </div>
         ) : (
@@ -328,6 +338,37 @@ header .sub { font-size: 13px; color: #a8a08c; }
   font-size: 12px;
   color: #8a8270;
   letter-spacing: 0.2em;
+}
+
+.must-line {
+  margin-top: 28px;
+  margin-bottom: 8px;
+  padding: 18px 16px;
+  background: rgba(216, 184, 106, 0.06);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  text-align: left;
+}
+.must-line-head {
+  color: var(--gold-bright);
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px !important;
+  line-height: 1.6;
+}
+.must-line-list {
+  color: #d8d2c0;
+  font-size: 13px;
+  margin-bottom: 4px !important;
+  padding-left: 14px;
+  line-height: 1.7;
+}
+.must-line-warn {
+  color: var(--gold-bright);
+  font-size: 13px;
+  margin-top: 12px !important;
+  line-height: 1.7;
+  font-weight: bold;
 }
 
 .line-link {
