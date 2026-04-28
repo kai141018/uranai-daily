@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const concerns = [
   { value: 'money',   label: '金運・お金' },
@@ -29,6 +29,12 @@ export default function FreeKanteiForm() {
     worry_detail: '',
   })
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
+
+  useEffect(() => {
+    if (status === 'done') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [status])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
