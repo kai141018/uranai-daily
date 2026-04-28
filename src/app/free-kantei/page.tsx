@@ -49,6 +49,7 @@ export default function FreeKanteiForm() {
 
   const isValid =
     form.name &&
+    form.line_display_name &&
     form.birthdate &&
     form.worry_category &&
     form.worry_detail.trim().length >= 10
@@ -99,12 +100,12 @@ export default function FreeKanteiForm() {
               </div>
 
               <div className="field">
-                <label>LINE登録名（任意）</label>
-                <input type="text" autoComplete="name"
+                <label>LINE登録名<span className="req">*</span></label>
+                <input type="text" required autoComplete="name"
                   value={form.line_display_name}
                   onChange={e => setForm(f => ({ ...f, line_display_name: e.target.value }))}
-                  placeholder="LINEの表示名と同じ名前を書いてくれるとマッチが速い" />
-                <div className="hint">公式LINE追加時の名前が、ここと同じだと特定が早い</div>
+                  placeholder="LINEで表示されている名前そのまま" />
+                <div className="hint">この名前で誰宛か特定して鑑定文を送る、公式LINE追加時の名前と必ず同じにしてくれ</div>
               </div>
 
               <div className="field">

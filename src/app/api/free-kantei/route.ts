@@ -20,8 +20,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { name, birthdate, worry_category, worry_detail, line_display_name } = body
 
-    if (!name || !birthdate || !worry_category || !worry_detail) {
-      return NextResponse.json({ error: "必須項目が未入力だ" }, { status: 400 })
+    if (!name || !line_display_name || !birthdate || !worry_category || !worry_detail) {
+      return NextResponse.json({ error: "必須項目が未入力だ（LINE登録名も必須）" }, { status: 400 })
     }
     if (!VALID_CATEGORIES.includes(worry_category as WorryCategory)) {
       return NextResponse.json({ error: "カテゴリが不正だ" }, { status: 400 })
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
         birthdate,
         worry_category,
         worry_detail: String(worry_detail).slice(0, 2000),
-        line_display_name: line_display_name ? String(line_display_name).slice(0, 50) : null,
+        line_display_name: String(line_display_name).slice(0, 50),
         unmeisuu,
         status: "pending",
       })
