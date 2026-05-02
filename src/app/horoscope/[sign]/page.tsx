@@ -45,7 +45,7 @@ export default async function SignPage({ params }: Props) {
   if (!sign) notFound()
 
   const fortune = await getSignFortune(signId)
-  const today = new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric" })
+  const today = new Date().toLocaleDateString("ja-JP", { year: "numeric", month: "long", day: "numeric", timeZone: "Asia/Tokyo" })
 
   return (
     <div className="max-w-3xl mx-auto px-4">

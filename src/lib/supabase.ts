@@ -8,8 +8,14 @@ export const supabase = createClient(supabaseUrl, supabaseKey)
 // ============================================================
 // 今日の運勢
 // ============================================================
+function getJstToday() {
+  // JST（Asia/Tokyo）基準の今日の日付 YYYY-MM-DD を返す
+  // UTC基準だとJST早朝（00:00-09:00）に前日が返るため必ずJSTで取得する
+  return new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date())
+}
+
 export async function getTodayFortunes() {
-  const today = new Date().toISOString().split("T")[0]
+  const today = getJstToday()
   const { data, error } = await supabase
     .from("seo_daily_fortune")
     .select("*")
@@ -21,7 +27,7 @@ export async function getTodayFortunes() {
 }
 
 export async function getSignFortune(signId: string) {
-  const today = new Date().toISOString().split("T")[0]
+  const today = getJstToday()
   const { data, error } = await supabase
     .from("seo_daily_fortune")
     .select("*")

@@ -19,6 +19,7 @@ export default async function Home() {
     month: "long",
     day: "numeric",
     weekday: "short",
+    timeZone: "Asia/Tokyo",
   })
 
   return (

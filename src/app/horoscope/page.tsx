@@ -21,6 +21,7 @@ export default async function HoroscopePage() {
     month: "long",
     day: "numeric",
     weekday: "short",
+    timeZone: "Asia/Tokyo",
   })
 
   // DBに運勢がある場合はDBから、なければ星座リストだけ表示

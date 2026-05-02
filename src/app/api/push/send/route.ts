@@ -39,6 +39,10 @@ export async function GET(req: NextRequest) {
     init()
     const supabase = getSupabase()
     const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date())
+    // 通知body用の和式日付（例: "5月2日(金)"）
+    const todayDate = new Date(`${today}T00:00:00+09:00`)
+    const youbi = ["日", "月", "火", "水", "木", "金", "土"][todayDate.getDay()]
+    const todayLabel = `${todayDate.getMonth() + 1}月${todayDate.getDate()}日(${youbi})`
 
     // 今日の運勢を取得
     const { data: fortunes } = await supabase
@@ -89,9 +93,9 @@ export async function GET(req: NextRequest) {
       const summary = advice.length > 60 ? advice.slice(0, 60) + "..." : advice
 
       const payload = JSON.stringify({
-        title: `${signName} 今日の運勢 ${rank}位`,
+        title: `${signName} ${todayLabel}の運勢 ${rank}位`,
         body: summary,
-        url: `/horoscope/${sub.zodiac_sign}`,
+        url: `/horoscope/${sub.zodiac_sign}?d=${today}`,
       })
 
       try {
